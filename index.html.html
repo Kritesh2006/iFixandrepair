@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuickBook — Online Booking for Local Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:    #0D1117;
+    --paper:  #FAFAF8;
+    --accent: #FF5C35;
+    --accent2:#FFB800;
+    --muted:  #6B7280;
+    --border: #E5E4DF;
+    --card:   #FFFFFF;
+    --green:  #16A34A;
+    --radius: 16px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(250,250,248,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 22px; color: var(--ink);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .logo-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; display: inline-block; }
+  nav a {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    text-decoration: none; margin-left: 32px;
+    transition: color .2s;
+  }
+  nav a:hover { color: var(--ink); }
+  .nav-cta {
+    background: var(--ink); color: #fff !important;
+    padding: 10px 22px; border-radius: 40px; font-weight: 600 !important;
+    transition: background .2s, transform .15s !important;
+  }
+  .nav-cta:hover { background: var(--accent) !important; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 50%, rgba(255,92,53,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255,184,0,.07) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0; opacity: .04;
+    background-image: linear-gradient(var(--ink) 1px, transparent 1px),
+                      linear-gradient(90deg, var(--ink) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-inner {
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 40px; padding: 6px 16px;
+    font-size: 13px; font-weight: 500; color: var(--muted);
+    margin-bottom: 28px;
+    animation: fadeUp .6s ease both;
+  }
+  .hero-tag span { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(42px, 5.5vw, 72px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -2px;
+    animation: fadeUp .7s .1s ease both;
+  }
+  h1 em { font-style: normal; color: var(--accent); }
+  .hero-sub {
+    margin-top: 24px; font-size: 18px; line-height: 1.6;
+    color: var(--muted); max-width: 460px;
+    animation: fadeUp .7s .2s ease both;
+  }
+  .hero-actions {
+    margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp .7s .3s ease both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: 40px;
+    padding: 16px 32px; font-size: 16px; font-weight: 600;
+    cursor: pointer; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 24px rgba(255,92,53,.35);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,92,53,.45); }
+  .btn-secondary {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--border); border-radius: 40px;
+    padding: 16px 32px; font-size: 16px; font-weight: 500;
+    cursor: pointer; transition: border-color .2s, background .2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 56px;
+    animation: fadeUp .7s .4s ease both;
+  }
+  .stat-item { }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--ink); }
+  .stat-label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── BOOKING CARD (hero right) ── */
+  .booking-card {
+    background: var(--card);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    box-shadow: 0 32px 80px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.04);
+    animation: fadeUp .8s .2s ease both;
+    position: relative;
+  }
+  .booking-card::before {
+    content: '';
+    position: absolute; top: -2px; left: 32px; right: 32px; height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 40px;
+  }
+  .card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px;
+  }
+  .card-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; }
+  .card-badge {
+    background: rgba(22,163,74,.1); color: var(--green);
+    font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 40px;
+  }
+
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block; font-size: 12px; font-weight: 600;
+    color: var(--muted); text-transform: uppercase; letter-spacing: .5px;
+    margin-bottom: 6px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 15px; font-family: 'DM Sans', sans-serif;
+    background: var(--paper); color: var(--ink);
+    transition: border-color .2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--accent);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .time-slots {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-top: 8px;
+  }
+  .slot {
+    padding: 10px 6px; border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 13px; font-weight: 500; text-align: center; cursor: pointer;
+    transition: all .15s; color: var(--ink);
+    background: var(--paper);
+  }
+  .slot:hover { border-color: var(--accent); color: var(--accent); }
+  .slot.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .slot.taken { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+
+  .book-btn {
+    width: 100%; margin-top: 20px;
+    background: var(--ink); color: #fff;
+    border: none; border-radius: 12px;
+    padding: 15px; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background .2s, transform .15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .book-btn:hover { background: var(--accent); transform: translateY(-1px); }
+
+  .card-footer {
+    display: flex; align-items: center; justify-content: center;
+    gap: 6px; margin-top: 14px;
+    font-size: 12px; color: var(--muted);
+  }
+  .card-footer svg { width: 14px; height: 14px; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 100px 40px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+    letter-spacing: -1.5px; line-height: 1.1;
+    max-width: 600px;
+  }
+  .section-sub {
+    margin-top: 16px; font-size: 17px; line-height: 1.65;
+    color: var(--muted); max-width: 520px;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how-bg { background: var(--ink); color: #fff; }
+  .how-bg .section-title { color: #fff; }
+  .how-bg .section-sub { color: rgba(255,255,255,.6); }
+  .how-bg .section-tag { color: var(--accent2); }
+
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    margin-top: 60px;
+    border: 2px solid rgba(255,255,255,.08); border-radius: 20px; overflow: hidden;
+  }
+  .step {
+    padding: 40px 32px;
+    background: rgba(255,255,255,.03);
+    border-right: 1px solid rgba(255,255,255,.06);
+    transition: background .3s;
+  }
+  .step:last-child { border-right: none; }
+  .step:hover { background: rgba(255,255,255,.07); }
+  .step-num {
+    font-family: 'Syne', sans-serif; font-size: 48px; font-weight: 800;
+    color: rgba(255,255,255,.08); line-height: 1; margin-bottom: 20px;
+  }
+  .step-icon {
+    font-size: 32px; margin-bottom: 16px;
+  }
+  .step-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .step-desc { font-size: 15px; line-height: 1.65; color: rgba(255,255,255,.55); }
+
+  /* ── FEATURES ── */
+  .features-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-top: 60px;
+  }
+  .feature-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 32px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px rgba(0,0,0,.08);
+  }
+  .feature-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 20px;
+  }
+  .fi-orange { background: rgba(255,92,53,.1); }
+  .fi-yellow { background: rgba(255,184,0,.1); }
+  .fi-green  { background: rgba(22,163,74,.1); }
+  .fi-blue   { background: rgba(59,130,246,.1); }
+  .fi-purple { background: rgba(139,92,246,.1); }
+  .fi-pink   { background: rgba(236,72,153,.1); }
+  .feature-title { font-family: 'Syne', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+  .feature-desc { font-size: 14px; line-height: 1.65; color: var(--muted); }
+
+  /* ── PRICING ── */
+  .pricing-section { background: #F4F3EF; }
+  .pricing-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-top: 60px;
+  }
+  .pricing-card {
+    background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 36px 28px;
+    position: relative; transition: transform .2s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); }
+  .pricing-card.featured {
+    background: var(--ink); border-color: var(--ink); color: #fff;
+    transform: scale(1.04);
+  }
+  .pricing-card.featured:hover { transform: scale(1.04) translateY(-4px); }
+  .featured-badge {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff;
+    font-size: 12px; font-weight: 700; padding: 5px 16px; border-radius: 40px;
+    white-space: nowrap;
+  }
+  .plan-name { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .featured .plan-name { color: #fff; }
+  .plan-price {
+    font-family: 'Syne', sans-serif; font-size: 44px; font-weight: 800;
+    letter-spacing: -2px; line-height: 1; margin: 16px 0 4px;
+  }
+  .pricing-card.featured .plan-price { color: #fff; }
+  .plan-cycle { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .pricing-card.featured .plan-cycle { color: rgba(255,255,255,.5); }
+  .plan-features { list-style: none; margin-bottom: 32px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; line-height: 1.5; padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .pricing-card.featured .plan-features li { border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.8); }
+  .plan-features li:last-child { border-bottom: none; }
+  .check { color: var(--green); font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .pricing-card.featured .check { color: var(--accent2); }
+  .plan-btn {
+    width: 100%; padding: 14px;
+    border-radius: 12px; font-size: 15px; font-weight: 600;
+    cursor: pointer; border: 1.5px solid var(--border);
+    background: transparent; color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    transition: all .2s;
+  }
+  .plan-btn:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .pricing-card.featured .plan-btn {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+    box-shadow: 0 8px 24px rgba(255,92,53,.4);
+  }
+  .pricing-card.featured .plan-btn:hover { background: #ff3d1a; }
+
+  /* ── TESTIMONIAL ── */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    margin-top: 60px;
+  }
+  .testimonial-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+  }
+  .stars { color: var(--accent2); font-size: 16px; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-text { font-size: 15px; line-height: 1.65; color: var(--ink); margin-bottom: 20px; }
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  .author-name { font-weight: 600; font-size: 14px; }
+  .author-biz { font-size: 12px; color: var(--muted); }
+
+  /* ── CTA BOTTOM ── */
+  .cta-section {
+    background: var(--accent);
+    padding: 80px 40px;
+    text-align: center;
+  }
+  .cta-section h2 {
+    font-family: 'Syne', sans-serif; font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800; color: #fff; letter-spacing: -1.5px; margin-bottom: 16px;
+  }
+  .cta-section p { color: rgba(255,255,255,.8); font-size: 18px; margin-bottom: 36px; }
+  .cta-btn {
+    background: #fff; color: var(--accent);
+    border: none; border-radius: 40px;
+    padding: 18px 40px; font-size: 17px; font-weight: 700;
+    cursor: pointer; transition: transform .2s, box-shadow .2s;
+    font-family: 'DM Sans', sans-serif;
+    box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink); padding: 40px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: #fff; }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,.4); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SUCCESS MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card); border-radius: 24px;
+    padding: 48px 40px; text-align: center; max-width: 400px;
+    box-shadow: 0 40px 80px rgba(0,0,0,.2);
+    animation: fadeUp .4s ease;
+  }
+  .modal-icon { font-size: 56px; margin-bottom: 20px; }
+  .modal h3 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+  .modal p { color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+  .modal-close {
+    background: var(--ink); color: #fff;
+    border: none; border-radius: 12px;
+    padding: 13px 32px; font-size: 15px; font-weight: 600;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+  }
+
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .booking-card { display: none; }
+    .steps-grid, .features-grid, .pricing-cards, .testimonials-grid { grid-template-columns: 1fr; }
+    .pricing-card.featured { transform: none; }
+    nav { padding: 16px 20px; }
+    nav a:not(.nav-cta) { display: none; }
+    section { padding: 70px 20px; }
+    .hero { padding: 100px 20px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span class="logo-dot"></span> QuickBook</div>
+  <div>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#pricing" class="nav-cta">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag"><span></span> Live bookings, zero phone tag</div>
+      <h1>Bookings on <em>autopilot.</em> Customers love it.</h1>
+      <p class="hero-sub">Give your business a professional booking page in minutes. Customers book online, you get notified. No back-and-forth calls.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Get your page — from $199</button>
+        <button class="btn-secondary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">See live demo ↓</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3 min</div>
+          <div class="stat-label">avg setup time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">bookings while you sleep</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">$0</div>
+          <div class="stat-label">monthly fees on basic</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE DEMO BOOKING CARD -->
+    <div class="booking-card" id="demo">
+      <div class="card-header">
+        <div class="card-title">Book an Appointment</div>
+        <div class="card-badge">● Live Demo</div>
+      </div>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="e.g. Marcus T." id="name-input">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="704-555-0192">
+        </div>
+        <div class="form-group">
+          <label>Service</label>
+          <select>
+            <option>Screen Repair</option>
+            <option>Battery Replace</option>
+            <option>Charging Port</option>
+            <option>Water Damage</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Pick a Time — Today</label>
+        <div class="time-slots">
+          <div class="slot taken">9:00 AM</div>
+          <div class="slot taken">10:00 AM</div>
+          <div class="slot" onclick="selectSlot(this)">11:00 AM</div>
+          <div class="slot taken">12:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">1:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">2:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">3:00 PM</div>
+          <div class="slot taken">4:00 PM</div>
+          <div class="slot" onclick="selectSlot(this)">5:00 PM</div>
+        </div>
+      </div>
+      <button class="book-btn" onclick="bookNow()">Confirm Booking →</button>
+      <div class="card-footer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Your info is never shared or sold
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-bg" id="how">
+  <div class="section-inner">
+    <div class="section-tag">How it works</div>
+    <div class="section-title">Up and running in three steps</div>
+    <div class="section-sub">No tech skills needed. We set everything up for you.</div>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📋</div>
+        <div class="step-title">Tell us your services</div>
+        <div class="step-desc">Send us your service list and hours. We build your custom booking page — branded to your business.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔗</div>
+        <div class="step-title">Share your link</div>
+        <div class="step-desc">Put your booking link on your Instagram bio, Google listing, or just text it to customers. That's it.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-icon">🔔</div>
+        <div class="step-title">Get notified, show up</div>
+        <div class="step-desc">You get a text or email every time someone books. No more missed calls. No more back-and-forth.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <div class="section-tag">Features</div>
+    <div class="section-title">Everything a local shop needs</div>
+    <div class="section-sub">Built for real businesses — not tech companies.</div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon fi-orange">📅</div>
+        <div class="feature-title">Online Booking Page</div>
+        <div class="feature-desc">Your own branded page where customers pick a service, time, and confirm — all without calling you.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-yellow">🔔</div>
+        <div class="feature-title">Instant Notifications</div>
+        <div class="feature-desc">Get a text the moment someone books. Never miss an appointment again.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-green">📲</div>
+        <div class="feature-title">Auto Reminders</div>
+        <div class="feature-desc">Customers get automatic text reminders before their appointment. Fewer no-shows, more revenue.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-blue">📊</div>
+        <div class="feature-title">Simple Dashboard</div>
+        <div class="feature-desc">See all your bookings in one place. View, reschedule, or cancel with one click.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-purple">🎨</div>
+        <div class="feature-title">Custom Branding</div>
+        <div class="feature-desc">Your logo, your colors, your business name. Looks professional from day one.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-pink">📱</div>
+        <div class="feature-title">Works on Any Phone</div>
+        <div class="feature-desc">Customers can book from any phone, tablet, or computer. No app to download.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:#F4F3EF; padding-top:80px; padding-bottom:80px;">
+  <div class="section-inner">
+    <div class="section-tag">What shop owners say</div>
+    <div class="section-title">Real results from real businesses</div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"I used to miss calls all day while working. Now customers just book online and I get a text. Best money I've spent."</div>
+        <div class="testimonial-author">
+          <div class="avatar" style="background:#FF5C35">M</div>
+          <div>
+            <div class="author-name">Mike R.</div>
+            <div class="author-biz">Charlotte Phone Repair</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"My Google listing now shows a 'Book Online' button. I get 5-6 new customers a week just from that alone."</div>
+        <div class="testimonial-author">
+          <div class="avatar" style="background:#2C5F8A">D</div>
+          <div>
+            <div class="author-name">Diana K.</div>
+            <div class="author-biz">Glam Nails Studio</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"Set up took 10 minutes. The guy who built it walked me through everything. My customers love how easy it is."</div>
+        <div class="testimonial-author">
+          <div class="avatar" style="background:#16A34A">T</div>
+          <div>
+            <div class="author-name">Tony B.</div>
+            <div class="author-biz">Fresh Cuts Barbershop</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="section-tag">Simple pricing</div>
+    <div class="section-title">One price. Yours forever.</div>
+    <div class="section-sub">No subscriptions. No hidden fees. Pay once, keep it forever.</div>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$149</div>
+        <div class="plan-cycle">one-time payment</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Custom booking page</li>
+          <li><span class="check">✓</span> Up to 3 services listed</li>
+          <li><span class="check">✓</span> Email notifications</li>
+          <li><span class="check">✓</span> Mobile-friendly design</li>
+          <li><span class="check">✓</span> Your logo & colors</li>
+        </ul>
+        <button class="plan-btn">Get Starter</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="featured-badge">Most Popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$249</div>
+        <div class="plan-cycle">one-time payment</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Everything in Starter</li>
+          <li><span class="check">✓</span> Unlimited services</li>
+          <li><span class="check">✓</span> Text + email notifications</li>
+          <li><span class="check">✓</span> Auto customer reminders</li>
+          <li><span class="check">✓</span> Google Maps booking link</li>
+          <li><span class="check">✓</span> 30-day support included</li>
+        </ul>
+        <button class="plan-btn">Get Pro — Best Deal</button>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">$349</div>
+        <div class="plan-cycle">one-time payment</div>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Everything in Pro</li>
+          <li><span class="check">✓</span> Custom domain setup</li>
+          <li><span class="check">✓</span> Payment collection online</li>
+          <li><span class="check">✓</span> Booking analytics</li>
+          <li><span class="check">✓</span> 90-day support included</li>
+        </ul>
+        <button class="plan-btn">Get Premium</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="section-inner">
+    <h2>Ready to stop missing bookings?</h2>
+    <p>Takes 3 minutes to set up. We do all the work.</p>
+    <button class="cta-btn">Get your booking page today →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">⚡ QuickBook</div>
+  <div class="footer-copy">© 2026 QuickBook. Built for local businesses.</div>
+</footer>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">🎉</div>
+    <h3>You're booked!</h3>
+    <p>We'll send a confirmation text shortly. See you soon!</p>
+    <button class="modal-close" onclick="closeModal()">Done</button>
+  </div>
+</div>
+
+<script>
+  function selectSlot(el) {
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function bookNow() {
+    const name = document.getElementById('name-input').value.trim();
+    const selected = document.querySelector('.slot.selected');
+    if (!name) { document.getElementById('name-input').focus(); return; }
+    if (!selected) { alert('Please pick a time slot first!'); return; }
+    document.getElementById('modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+    document.getElementById('name-input').value = '';
+    document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+  }
+
+  // Scroll fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.feature-card, .step, .pricing-card, .testimonial-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
