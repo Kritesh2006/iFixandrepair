@@ -537,6 +537,20 @@ footer{
   footer{padding:28px 20px;flex-direction:column;text-align:center;}
   .footer-links{justify-content:center;}
 }
+/* ── DATE TABS ── */
+.date-tabs{display:flex;gap:8px;flex-wrap:wrap;}
+.date-tab{
+  flex:1;min-width:80px;
+  padding:10px 8px;text-align:center;
+  border:1.5px solid var(--border);border-radius:10px;
+  cursor:pointer;transition:all .15s;
+  background:var(--gray);font-family:'Outfit',sans-serif;
+  font-size:13px;font-weight:600;color:var(--black);
+}
+.date-tab:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt);}
+.date-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+.date-tab .dt-day{font-size:11px;font-weight:500;opacity:.75;margin-bottom:2px;}
+.date-tab .dt-date{font-size:14px;font-weight:700;}
 </style>
 </head>
 <body>
@@ -752,9 +766,9 @@ footer{
       </div>
 
       <!-- BOOKING FORM -->
-      <form class="book-form reveal" id="book-form" action="https://formspree.io/f/mvzwlwvy" method="POST">
+      <form class="book-form reveal" id="book-form" action="https://formspree.io/f/mzdjojov" method="POST">
         <div class="form-title">Book Your Repair</div>
-        <div class="form-sub">Takes 60 seconds · I'll text you to confirm</div>
+        <div class="form-sub">Takes 60 seconds · We'll confirm within 15 minutes</div>
 
         <div class="form-row">
           <div class="fg">
@@ -763,7 +777,7 @@ footer{
           </div>
           <div class="fg">
             <label>Phone Number</label>
-            <input type="tel" name="phone" placeholder="704-555-0000" id="f-phone">
+            <input type="tel" name="phone" placeholder="336-000-0000" id="f-phone">
           </div>
         </div>
         <div class="fg">
@@ -788,19 +802,17 @@ footer{
           <textarea name="notes" placeholder="Any other details about the problem..."></textarea>
         </div>
 
-        <span class="time-label">Pick a time slot — today</span>
-        <div class="slots">
-          <div class="slot taken">9:00 AM</div>
-          <div class="slot taken">10:00 AM</div>
-          <div class="slot" onclick="pickSlot(this)">11:00 AM</div>
-          <div class="slot taken">12:00 PM</div>
-          <div class="slot" onclick="pickSlot(this)">1:00 PM</div>
-          <div class="slot" onclick="pickSlot(this)">2:00 PM</div>
-          <div class="slot" onclick="pickSlot(this)">3:00 PM</div>
-          <div class="slot" onclick="pickSlot(this)">4:00 PM</div>
-          <div class="slot" onclick="pickSlot(this)">5:00 PM</div>
+        <!-- DATE PICKER -->
+        <div class="fg">
+          <label>Pick a Date</label>
+          <div class="date-tabs" id="date-tabs"></div>
         </div>
-        <!-- Hidden input carries the selected time slot value -->
+
+        <!-- TIME SLOTS -->
+        <span class="time-label">Pick a Time Slot</span>
+        <div class="slots" id="slots-container"></div>
+
+        <input type="hidden" name="date" id="f-date">
         <input type="hidden" name="time_slot" id="f-slot">
 
         <button type="button" class="submit-btn" onclick="submitBooking()">Send Booking Request →</button>
