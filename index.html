@@ -5,552 +5,264 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>iFixAndRepair — Phone Repair Greensboro NC</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-
 :root{
-  --black:   #0A0A0A;
-  --white:   #FFFFFF;
-  --blue:    #2563eb;
-  --blue-lt: #dbeafe;
-  --gray:    #F2F2F0;
-  --gray2:   #EBEBEB;
-  --muted:   #888;
-  --green:   #00C851;
-  --border:  #E0E0E0;
-  --radius:  14px;
+  --bg:#000000;
+  --surface:#0a0a0a;
+  --surface2:#111111;
+  --surface3:#1a1a1a;
+  --border:rgba(255,255,255,.08);
+  --border2:rgba(255,255,255,.12);
+  --white:#ffffff;
+  --blue:#2563eb;
+  --blue2:#3b82f6;
+  --blue3:#60a5fa;
+  --cyan:#06b6d4;
+  --green:#22c55e;
+  --text1:#ffffff;
+  --text2:rgba(255,255,255,.7);
+  --text3:rgba(255,255,255,.4);
+  --text4:rgba(255,255,255,.2);
 }
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text1);overflow-x:hidden;line-height:1.5}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px}
 
-html{scroll-behavior:smooth}
-body{
-  font-family:'Outfit',sans-serif;
-  background:var(--white);
-  color:var(--black);
-  overflow-x:hidden;
-}
-
-/* ── NOISE TEXTURE OVERLAY ── */
-body::before{
-  content:'';
-  position:fixed;inset:0;z-index:9999;
-  pointer-events:none;opacity:.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-/* ── NAV ── */
+/* NAV */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
+  position:fixed;top:0;left:0;right:0;z-index:200;height:60px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 40px;height:68px;
-  background:rgba(255,255,255,0.92);
-  backdrop-filter:blur(16px);
+  padding:0 max(40px,calc((100vw - 1200px)/2));
+  background:rgba(0,0,0,.8);
+  backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
   border-bottom:1px solid var(--border);
 }
-.nav-logo{
-  font-family:'Space Mono',monospace;
-  font-weight:700;font-size:16px;
-  color:var(--black);
-  display:flex;align-items:center;gap:10px;
-  text-decoration:none;
-}
-.nav-logo-icon{
-  width:34px;height:34px;
-  background:var(--blue);
-  border-radius:8px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;
-  flex-shrink:0;
-}
-.nav-links{display:flex;align-items:center;gap:8px;}
-.nav-links a{
-  font-size:14px;font-weight:500;color:var(--muted);
-  text-decoration:none;padding:8px 14px;border-radius:40px;
-  transition:color .2s,background .2s;
-}
-.nav-links a:hover{color:var(--black);background:var(--gray);}
-.nav-cta{
-  background:var(--blue)!important;
-  color:var(--white)!important;
-  font-weight:600!important;
-  padding:10px 20px!important;
-  transition:transform .2s,box-shadow .2s!important;
-  box-shadow:0 4px 16px rgba(37,99,235,.4)!important;
-}
-.nav-cta:hover{
-  transform:translateY(-1px)!important;
-  box-shadow:0 8px 24px rgba(37,99,235,.55)!important;
-  background:var(--blue)!important;
-}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:30px;width:30px;object-fit:contain;border-radius:7px}
+.nav-logo-text{font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text3);text-decoration:none;padding:7px 14px;border-radius:20px;transition:color .2s,background .2s}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.07)}
+.nav-btn{font-size:13px;font-weight:600;color:#fff!important;background:var(--blue)!important;border-radius:20px;padding:8px 18px!important;box-shadow:0 0 20px rgba(37,99,235,.4);transition:box-shadow .2s,transform .15s!important}
+.nav-btn:hover{box-shadow:0 0 32px rgba(37,99,235,.65)!important;transform:translateY(-1px)!important;background:var(--blue)!important}
 
-/* ── HERO ── */
-.hero{
-  min-height:100vh;
-  padding:120px 40px 80px;
-  display:flex;align-items:center;
-  position:relative;
-  background:var(--black);
-  overflow:hidden;
-}
-.hero-grid-bg{
-  position:absolute;inset:0;
-  background-image:
-    linear-gradient(rgba(37,99,235,.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37,99,235,.15) 1px, transparent 1px);
-  background-size:60px 60px;
-}
-.hero-glow{
-  position:absolute;
-  width:700px;height:700px;
-  background:radial-gradient(circle, rgba(37,99,235,.3) 0%, transparent 65%);
-  top:-200px;right:-100px;
-  pointer-events:none;
-}
-.hero-glow2{
-  position:absolute;
-  width:400px;height:400px;
-  background:radial-gradient(circle, rgba(0,200,81,.12) 0%, transparent 65%);
-  bottom:-100px;left:10%;
-  pointer-events:none;
-}
-.hero-inner{
-  position:relative;z-index:1;
-  max-width:1160px;margin:0 auto;width:100%;
-  display:grid;grid-template-columns:1fr 420px;gap:80px;align-items:center;
-}
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:40px;padding:6px 16px;
-  font-family:'Space Mono',monospace;font-size:11px;
-  color:rgba(255,255,255,.5);margin-bottom:28px;
-  animation:fadeUp .6s ease both;
-}
-.hero-eyebrow-dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 8px var(--green);
-  animation:blink 2s infinite;
-}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:100px max(40px,calc((100vw - 1200px)/2)) 80px;position:relative;overflow:hidden}
+.hero-aurora{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 65% 0%,rgba(37,99,235,.18) 0%,transparent 60%),radial-gradient(ellipse 50% 40% at 10% 80%,rgba(6,182,212,.1) 0%,transparent 50%),radial-gradient(ellipse 40% 50% at 90% 90%,rgba(37,99,235,.08) 0%,transparent 50%);animation:aurora 8s ease-in-out infinite alternate}
+@keyframes aurora{0%{opacity:.7;transform:scale(1)}100%{opacity:1;transform:scale(1.04) translateY(-16px)}}
+.hero-dots{position:absolute;inset:0;z-index:0;background-image:radial-gradient(circle,rgba(255,255,255,.055) 1px,transparent 1px);background-size:32px 32px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 30%,transparent 100%)}
+.hero-inner{position:relative;z-index:1;max-width:1200px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
 
-h1{
-  font-size:clamp(44px,6vw,78px);
-  font-weight:800;line-height:1.0;
-  letter-spacing:-3px;
-  color:var(--white);
-  animation:fadeUp .7s .1s ease both;
-}
-h1 .blue{color:var(--blue);}
-h1 .thin{font-weight:300;opacity:.6;}
+.hero-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.3);border-radius:40px;padding:5px 16px 5px 8px;margin-bottom:24px;animation:fadeUp .5s ease both}
+.hero-pill-dot{width:22px;height:22px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
+.hero-pill span{font-size:12px;font-weight:600;color:var(--blue3);letter-spacing:.3px}
 
-.hero-desc{
-  margin-top:24px;
-  font-size:17px;line-height:1.65;
-  color:rgba(255,255,255,.5);
-  max-width:480px;
-  animation:fadeUp .7s .2s ease both;
-}
-.hero-actions{
-  margin-top:36px;
-  display:flex;gap:14px;flex-wrap:wrap;
-  animation:fadeUp .7s .3s ease both;
-}
-.btn-blue{
-  background:var(--blue);color:var(--white);
-  border:none;border-radius:12px;
-  padding:15px 28px;font-size:15px;font-weight:700;
-  cursor:pointer;font-family:'Outfit',sans-serif;
-  transition:transform .2s,box-shadow .2s;
-  box-shadow:0 8px 28px rgba(37,99,235,.6), 0 0 0 1px rgba(96,165,250,.3);
-  text-decoration:none;display:inline-block;
-}
-.btn-blue:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(37,99,235,.7), 0 0 0 1px rgba(96,165,250,.5);}
-.btn-ghost{
-  background:rgba(255,255,255,.08);color:rgba(255,255,255,.95);
-  border:1.5px solid rgba(96,165,250,.4);border-radius:12px;
-  padding:15px 28px;font-size:15px;font-weight:600;
-  cursor:pointer;font-family:'Outfit',sans-serif;
-  transition:background .2s,border-color .2s,box-shadow .2s;
-  text-decoration:none;display:inline-block;
-  box-shadow:0 0 0 0 rgba(96,165,250,0);
-}
-.btn-ghost:hover{background:rgba(37,99,235,.15);border-color:rgba(96,165,250,.8);box-shadow:0 0 16px rgba(96,165,250,.2);}
+.hero-h1{font-size:clamp(44px,5.5vw,80px);font-weight:800;line-height:1.05;letter-spacing:-2.5px;animation:fadeUp .6s .05s ease both}
+.hero-h1 .grad{background:linear-gradient(135deg,#fff 0%,var(--blue3) 50%,var(--cyan) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-.hero-badges{
-  display:flex;gap:20px;margin-top:44px;
-  animation:fadeUp .7s .4s ease both;
-}
-.badge{
-  display:flex;align-items:center;gap:8px;
-  font-size:13px;color:rgba(255,255,255,.4);
-}
-.badge-icon{font-size:16px;}
+.hero-p{margin-top:20px;font-size:18px;line-height:1.7;color:var(--text2);max-width:460px;animation:fadeUp .6s .1s ease both}
 
-/* ── PHONE MOCKUP ── */
-.phone-wrap{
-  display:flex;justify-content:center;align-items:center;
-  animation:fadeUp .9s .3s ease both;
-  position:relative;
-}
-.phone-mockup{
-  width:220px;
-  background:var(--black);
-  border:2px solid rgba(255,255,255,.15);
-  border-radius:36px;
-  padding:16px 12px;
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.05),
-    0 40px 80px rgba(0,0,0,.6),
-    0 0 60px rgba(37,99,235,.25);
-  position:relative;
-}
-.phone-notch{
-  width:80px;height:22px;
-  background:var(--black);
-  border-radius:0 0 16px 16px;
-  margin:0 auto 14px;
-  border:2px solid rgba(255,255,255,.1);
-  border-top:none;
-}
-.phone-screen{
-  background:linear-gradient(160deg,#0A0A0A,#111);
-  border-radius:24px;overflow:hidden;
-  padding:18px 14px;
-  min-height:380px;
-}
-.phone-status{
-  display:flex;justify-content:space-between;
-  font-size:10px;color:rgba(255,255,255,.4);
-  margin-bottom:18px;
-  font-family:'Space Mono',monospace;
-}
-.p-logo{
-  font-family:'Space Mono',monospace;
-  font-size:12px;font-weight:700;color:var(--white);
-  display:flex;align-items:center;gap:6px;margin-bottom:18px;
-}
-.p-logo-dot{
-  width:20px;height:20px;background:var(--blue);
-  border-radius:6px;display:flex;align-items:center;justify-content:center;
-  font-size:10px;
-}
-.p-heading{font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px;line-height:1.3;}
-.p-sub{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:16px;}
-.p-service-list{display:flex;flex-direction:column;gap:8px;}
-.p-service{
-  background:rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:10px;padding:10px 12px;
-  display:flex;justify-content:space-between;align-items:center;
-}
-.p-service-name{font-size:11px;font-weight:600;color:var(--white);}
-.p-service-price{font-size:11px;color:var(--blue);font-weight:700;}
-.p-book-btn{
-  margin-top:14px;width:100%;
-  background:var(--blue);color:var(--white);
-  border:none;border-radius:10px;
-  padding:11px;font-size:12px;font-weight:600;
-  font-family:'Outfit',sans-serif;cursor:pointer;
-}
-.phone-float{
-  position:absolute;
-  background:var(--white);border-radius:12px;
-  padding:10px 14px;font-size:11px;font-weight:600;
-  box-shadow:0 8px 32px rgba(0,0,0,.3);
-  white-space:nowrap;
-}
-.float-1{top:40px;right:-70px;color:var(--green);}
-.float-2{bottom:60px;left:-80px;color:var(--blue);}
-.float-dot{
-  display:inline-block;width:7px;height:7px;
-  border-radius:50%;margin-right:5px;vertical-align:middle;
-}
+.hero-btns{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s .15s ease both}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border:none;border-radius:14px;padding:15px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;box-shadow:0 8px 32px rgba(37,99,235,.5);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent);pointer-events:none}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(37,99,235,.6)}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);color:#fff;border:1px solid var(--border2);border-radius:14px;padding:15px 28px;font-size:15px;font-weight:500;cursor:pointer;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s,border-color .2s}
+.btn-outline:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
 
-/* ── SERVICES ── */
-.services-section{padding:100px 40px;background:var(--white);}
-.section-inner{max-width:1160px;margin:0 auto;}
-.eyebrow{
-  font-family:'Space Mono',monospace;font-size:11px;
-  font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--blue);margin-bottom:14px;
-}
-.section-title{
-  font-size:clamp(32px,4vw,50px);font-weight:800;
-  letter-spacing:-1.5px;line-height:1.1;
-  max-width:560px;
-}
-.section-sub{
-  margin-top:14px;font-size:17px;line-height:1.6;
-  color:var(--muted);max-width:480px;
-}
-.services-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-  margin-top:56px;
-}
-.service-card{
-  border:1.5px solid var(--border);
-  border-radius:20px;padding:28px;
-  transition:border-color .2s,transform .2s,box-shadow .2s;
-  cursor:default;
-  position:relative;overflow:hidden;
-}
-.service-card::after{
-  content:'';
-  position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:var(--blue);
-  transform:scaleX(0);transform-origin:left;
-  transition:transform .3s;
-}
-.service-card:hover{
-  border-color:var(--blue);
-  transform:translateY(-4px);
-  box-shadow:0 16px 40px rgba(37,99,235,.12);
-}
-.service-card:hover::after{transform:scaleX(1);}
-.s-icon{font-size:30px;margin-bottom:16px;}
-.s-name{font-size:17px;font-weight:700;margin-bottom:6px;}
-.s-desc{font-size:14px;color:var(--muted);line-height:1.55;margin-bottom:16px;}
-.s-price{
-  font-family:'Space Mono',monospace;
-  font-size:15px;font-weight:700;color:var(--blue);
-}
-.s-time{font-size:12px;color:var(--muted);margin-top:3px;}
+.hero-trust{margin-top:40px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;animation:fadeUp .6s .2s ease both}
+.trust-item{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--text3);font-weight:500}
+.trust-item svg{width:14px;height:14px;color:var(--green);flex-shrink:0}
+.trust-div{width:1px;height:16px;background:var(--border2)}
 
-/* ── WHY US ── */
-.why-section{
-  padding:100px 40px;
-  background:var(--black);
-  position:relative;overflow:hidden;
-}
-.why-grid-bg{
-  position:absolute;inset:0;opacity:.06;
-  background-image:
-    linear-gradient(rgba(255,255,255,1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px);
-  background-size:40px 40px;
-}
-.why-section .eyebrow{color:var(--blue);}
-.why-section .section-title{color:var(--white);}
-.why-section .section-sub{color:rgba(255,255,255,.45);}
-.why-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
-  margin-top:60px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:20px;overflow:hidden;
-}
-.why-card{
-  padding:36px 28px;
-  background:rgba(255,255,255,.03);
-  border-right:1px solid rgba(255,255,255,.06);
-  transition:background .3s;
-  position:relative;z-index:1;
-}
-.why-card:last-child{border-right:none;}
-.why-card:hover{background:rgba(37,99,235,.1);}
-.why-num{
-  font-family:'Space Mono',monospace;
-  font-size:40px;font-weight:700;
-  color:rgba(255,255,255,.06);
-  line-height:1;margin-bottom:16px;
-}
-.why-icon{font-size:28px;margin-bottom:14px;}
-.why-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:8px;}
-.why-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,.45);}
+/* PHONE VISUAL */
+.hero-visual{display:flex;justify-content:center;align-items:center;animation:fadeUp .8s .2s ease both}
+.phone-scene{position:relative;width:280px;height:520px}
+.phone-scene::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.2) 0%,transparent 70%);animation:pglow 3s ease-in-out infinite}
+.phone-scene::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(6,182,212,.07) 0%,transparent 70%);animation:pglow 3s ease-in-out infinite .5s}
+@keyframes pglow{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
 
-/* ── BOOKING SECTION ── */
-.booking-section{
-  padding:100px 40px;
-  background:var(--gray);
-}
-.booking-layout{
-  display:grid;grid-template-columns:1fr 480px;gap:80px;
-  align-items:start;
-}
-.booking-left .section-title{color:var(--black);}
-.booking-perks{margin-top:36px;display:flex;flex-direction:column;gap:16px;}
-.perk{
-  display:flex;align-items:flex-start;gap:14px;
-  padding:18px 20px;background:var(--white);
-  border-radius:14px;border:1px solid var(--border);
-}
-.perk-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
-.perk-title{font-size:15px;font-weight:600;margin-bottom:3px;}
-.perk-desc{font-size:13px;color:var(--muted);line-height:1.5;}
+.phone-device{position:absolute;top:0;left:50%;transform:translateX(-50%);width:220px;height:460px;background:linear-gradient(145deg,#1c1c1e,#0a0a0a);border-radius:44px;border:1.5px solid rgba(255,255,255,.12);box-shadow:0 0 0 .5px rgba(255,255,255,.05),0 40px 80px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.08);overflow:hidden;animation:pfloat 4s ease-in-out infinite}
+@keyframes pfloat{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-12px)}}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:28px;background:#0a0a0a;border-radius:0 0 20px 20px;z-index:10;border-bottom:1.5px solid rgba(255,255,255,.08);border-left:1.5px solid rgba(255,255,255,.08);border-right:1.5px solid rgba(255,255,255,.08)}
+.phone-content{position:absolute;inset:0;padding:44px 14px 20px;display:flex;flex-direction:column;gap:9px;background:linear-gradient(180deg,#0f172a 0%,#080808 100%)}
+.p-statusbar{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.45);font-weight:600;letter-spacing:.3px;margin-bottom:2px}
+.p-header{background:rgba(37,99,235,.15);border:1px solid rgba(37,99,235,.3);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:8px}
+.p-header-icon{width:28px;height:28px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ph-title{font-size:11px;font-weight:700;color:#fff}
+.ph-sub{font-size:9px;color:rgba(255,255,255,.4);margin-top:1px}
+.p-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center}
+.pi-left{display:flex;align-items:center;gap:7px}
+.pi-icon{font-size:14px}
+.pi-name{font-size:10px;font-weight:600;color:#fff}
+.pi-desc{font-size:8px;color:rgba(255,255,255,.35);margin-top:1px}
+.pi-price{font-size:10px;font-weight:700;color:var(--blue3)}
+.p-cta{margin-top:2px;background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:10px;padding:10px;color:#fff;font-size:11px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4)}
 
-/* ── BOOKING FORM ── */
-.book-form{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:24px;padding:36px;
-  box-shadow:0 24px 60px rgba(0,0,0,.06);
-  position:relative;
-}
-.book-form::before{
-  content:'';
-  position:absolute;top:-2px;left:32px;right:32px;height:3px;
-  background:var(--blue);border-radius:40px;
-}
-.form-title{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:-.5px;}
-.form-sub{font-size:13px;color:var(--muted);margin-bottom:28px;}
-.fg{margin-bottom:16px;}
-.fg label{
-  display:block;font-size:11px;font-weight:700;
-  letter-spacing:.8px;text-transform:uppercase;
-  color:var(--muted);margin-bottom:7px;
-}
-.fg input,.fg select,.fg textarea{
-  width:100%;padding:13px 16px;
-  border:1.5px solid var(--border);border-radius:12px;
-  font-size:15px;font-family:'Outfit',sans-serif;
-  background:var(--gray);color:var(--black);
-  outline:none;transition:border-color .2s,background .2s;
-}
-.fg input:focus,.fg select:focus,.fg textarea:focus{
-  border-color:var(--blue);background:var(--white);
-}
-.fg textarea{resize:none;height:90px;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.f-badge{position:absolute;background:rgba(12,12,12,.92);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:8px 12px;font-size:11px;font-weight:600;color:#fff;white-space:nowrap;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.5);animation:bfloat 3s ease-in-out infinite}
+.fb1{top:60px;right:-60px;animation-delay:0s}
+.fb2{bottom:100px;left:-60px;animation-delay:1s}
+.fb3{bottom:230px;right:-55px;animation-delay:.5s}
+@keyframes bfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fb-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;vertical-align:middle}
 
-.time-label{
-  font-size:11px;font-weight:700;letter-spacing:.8px;
-  text-transform:uppercase;color:var(--muted);
-  margin-bottom:10px;display:block;
-}
-.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-.slot{
-  padding:11px 6px;
-  border:1.5px solid var(--border);border-radius:10px;
-  font-size:13px;font-weight:600;text-align:center;
-  cursor:pointer;transition:all .15s;
-  background:var(--gray);color:var(--black);
-  font-family:'Outfit',sans-serif;
-}
-.slot:hover:not(.taken){border-color:var(--blue);color:var(--blue);background:var(--blue-lt);}
-.slot.selected{background:var(--blue);color:var(--white);border-color:var(--blue);}
-.slot.taken{
-  opacity:.4;cursor:not-allowed;
-  text-decoration:line-through;font-size:12px;
-}
-.submit-btn{
-  width:100%;margin-top:20px;
-  background:var(--blue);color:var(--white);
-  border:none;border-radius:12px;
-  padding:16px;font-size:16px;font-weight:700;
-  cursor:pointer;font-family:'Outfit',sans-serif;
-  transition:transform .2s,box-shadow .2s;
-  box-shadow:0 6px 20px rgba(37,99,235,.5);
-}
-.submit-btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(37,99,235,.6);}
-.form-note{
-  text-align:center;margin-top:14px;
-  font-size:12px;color:var(--muted);
-}
+/* STATS */
+.stats-bar{padding:36px max(40px,calc((100vw - 1200px)/2));background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.stats-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat-block{text-align:center;padding:8px 20px;border-right:1px solid var(--border)}
+.stat-block:last-child{border-right:none}
+.stat-num{font-size:34px;font-weight:800;letter-spacing:-1.5px;background:linear-gradient(135deg,#fff,var(--blue3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-label{font-size:13px;color:var(--text3);margin-top:4px;font-weight:500}
 
-/* ── CONTACT ── */
-.contact-section{padding:80px 40px;background:var(--white);}
-.contact-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-  margin-top:48px;
-}
-.contact-card{
-  background:var(--gray);border-radius:20px;
-  padding:32px 28px;text-align:center;
-  border:1.5px solid var(--gray2);
-  transition:border-color .2s,transform .2s;
-}
-.contact-card:hover{border-color:var(--blue);transform:translateY(-3px);}
-.cc-icon{font-size:36px;margin-bottom:14px;}
-.cc-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-.cc-value{font-size:17px;font-weight:700;color:var(--black);}
-.cc-value a{color:var(--blue);text-decoration:none;}
-.cc-value a:hover{text-decoration:underline;}
-.cc-sub{font-size:13px;color:var(--muted);margin-top:5px;}
+/* SECTIONS */
+.swrap{padding:100px max(40px,calc((100vw - 1200px)/2))}
+.smax{max-width:1200px;margin:0 auto}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue3);margin-bottom:16px}
+.eyebrow::before{content:'';width:20px;height:2px;background:var(--blue);border-radius:1px;flex-shrink:0}
+.sh2{font-size:clamp(32px,4vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;color:#fff}
+.sp{margin-top:14px;font-size:17px;line-height:1.65;color:var(--text2);max-width:500px}
 
-/* ── FOOTER ── */
-footer{
-  background:var(--black);padding:40px;
-  display:flex;align-items:center;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.footer-logo{
-  font-family:'Space Mono',monospace;font-weight:700;
-  font-size:15px;color:var(--white);
-  display:flex;align-items:center;gap:10px;
-}
-.footer-logo-icon{
-  width:28px;height:28px;background:var(--blue);
-  border-radius:7px;display:flex;align-items:center;justify-content:center;
-  font-size:13px;
-}
-.footer-links{display:flex;gap:24px;}
-.footer-links a{font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;transition:color .2s;}
-.footer-links a:hover{color:rgba(255,255,255,.7);}
-.footer-copy{font-size:12px;color:rgba(255,255,255,.25);}
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:60px;background:var(--border);border:1px solid var(--border);border-radius:24px;overflow:hidden}
+.svc{background:var(--surface);padding:36px 30px;transition:background .25s;position:relative;overflow:hidden}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.svc:hover{background:var(--surface2)}
+.svc:hover::after{transform:scaleX(1)}
+.svc-ico{width:52px;height:52px;border-radius:14px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px}
+.svc-name{font-size:17px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.svc-desc{font-size:14px;color:var(--text3);line-height:1.6;margin-bottom:16px}
+.svc-price{font-size:20px;font-weight:800;background:linear-gradient(135deg,var(--blue3),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.svc-time{font-size:12px;color:var(--text4);margin-top:4px}
 
-/* ── SUCCESS MODAL ── */
-.modal-overlay{
-  display:none;position:fixed;inset:0;z-index:1000;
-  background:rgba(0,0,0,.6);backdrop-filter:blur(6px);
-  align-items:center;justify-content:center;
-}
-.modal-overlay.show{display:flex;}
-.modal{
-  background:var(--white);border-radius:24px;
-  padding:48px 40px;text-align:center;max-width:380px;width:90%;
-  box-shadow:0 40px 80px rgba(0,0,0,.3);
-  animation:fadeUp .4s ease;
-}
-.modal-icon{font-size:58px;margin-bottom:18px;}
-.modal h3{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;}
-.modal p{color:var(--muted);line-height:1.6;font-size:15px;margin-bottom:28px;}
-.modal-close{
-  background:var(--blue);color:var(--white);
-  border:none;border-radius:12px;
-  padding:14px 32px;font-size:15px;font-weight:600;
-  cursor:pointer;font-family:'Outfit',sans-serif;
-  box-shadow:0 6px 20px rgba(0,102,255,.35);
-}
+/* FEATURES STRIP */
+.feat-strip{padding:60px max(40px,calc((100vw - 1200px)/2));background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.feat-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+.feat{text-align:center}
+.feat-ico{width:56px;height:56px;border-radius:18px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px;transition:background .2s,transform .2s}
+.feat:hover .feat-ico{background:rgba(37,99,235,.2);transform:translateY(-3px)}
+.feat-title{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+.feat-desc{font-size:13px;color:var(--text3);line-height:1.55}
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(28px)}
-  to{opacity:1;transform:translateY(0)}
-}
-.reveal{
-  opacity:0;transform:translateY(24px);
-  transition:opacity .65s ease, transform .65s ease;
-}
-.reveal.visible{opacity:1;transform:translateY(0);}
+/* WHY */
+.why-wrap{background:var(--bg);position:relative;overflow:hidden}
+.why-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:60px;background:var(--border);border:1px solid var(--border);border-radius:24px;overflow:hidden}
+.why{background:var(--surface);padding:40px 28px;transition:background .25s}
+.why:hover{background:var(--surface2)}
+.why-num{font-size:52px;font-weight:800;letter-spacing:-2px;color:rgba(255,255,255,.04);line-height:1;margin-bottom:20px}
+.why-ico{width:44px;height:44px;border-radius:12px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:16px}
+.why-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.why-desc{font-size:13px;color:var(--text3);line-height:1.65}
 
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;}
-  .phone-wrap{display:none;}
-  .services-grid{grid-template-columns:1fr;}
-  .why-grid{grid-template-columns:1fr 1fr;}
-  .booking-layout{grid-template-columns:1fr;}
-  .contact-grid{grid-template-columns:1fr;}
-  nav{padding:0 20px;}
-  .nav-links a:not(.nav-cta){display:none;}
-  section,.services-section,.why-section,.booking-section,.contact-section{padding:70px 20px;}
-  .hero{padding:100px 20px 60px;}
-  footer{padding:28px 20px;flex-direction:column;text-align:center;}
-  .footer-links{justify-content:center;}
+/* BOOKING */
+.booking-wrap{background:var(--surface)}
+.book-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.bperks{display:flex;flex-direction:column;gap:12px;margin-top:36px}
+.bperk{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface2);border:1px solid var(--border);border-radius:16px;transition:border-color .2s}
+.bperk:hover{border-color:rgba(37,99,235,.3)}
+.bperk-ico{width:36px;height:36px;border-radius:10px;background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.bperk-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:3px}
+.bperk-desc{font-size:12px;color:var(--text3);line-height:1.5}
+
+/* FORM */
+.book-form{background:var(--surface2);border:1px solid var(--border);border-radius:24px;padding:36px;position:relative;overflow:hidden}
+.book-form::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),var(--cyan),transparent)}
+.form-title{font-size:20px;font-weight:800;letter-spacing:-.5px;color:#fff;margin-bottom:4px}
+.form-sub{font-size:13px;color:var(--text3);margin-bottom:26px}
+.fg{margin-bottom:13px}
+.fg label{display:block;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;padding:12px 16px;background:var(--surface3);border:1px solid var(--border);border-radius:12px;font-size:14px;font-family:'Inter',sans-serif;color:#fff;outline:none;transition:border-color .2s,background .2s}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--text4)}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(37,99,235,.6);background:rgba(37,99,235,.06)}
+.fg select option{background:#1a1a1a;color:#fff}
+.fg textarea{resize:none;height:78px;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.date-tabs{display:flex;gap:8px}
+.date-tab{flex:1;padding:10px 6px;text-align:center;background:var(--surface3);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.date-tab:hover{border-color:rgba(37,99,235,.4);background:rgba(37,99,235,.06)}
+.date-tab.active{background:var(--blue);border-color:var(--blue);box-shadow:0 4px 16px rgba(37,99,235,.4)}
+.dt-day{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.date-tab.active .dt-day{color:rgba(255,255,255,.75)}
+.dt-date{font-size:13px;font-weight:700;color:#fff}
+
+.time-label{display:block;font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin:4px 0 10px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:16px}
+.slot{padding:10px 4px;text-align:center;background:var(--surface3);border:1px solid var(--border);border-radius:10px;font-size:12px;font-weight:600;color:var(--text2);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+.slot:hover:not(.taken){border-color:rgba(37,99,235,.5);color:var(--blue3);background:rgba(37,99,235,.08)}
+.slot.selected{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 12px rgba(37,99,235,.4)}
+.slot.taken{opacity:.28;cursor:not-allowed;text-decoration:line-through;font-size:11px}
+
+.submit-btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--blue),#1d4ed8);color:#fff;border:none;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 8px 32px rgba(37,99,235,.45);transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.12),transparent);pointer-events:none}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(37,99,235,.6)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-note{text-align:center;margin-top:12px;font-size:11px;color:var(--text4);display:flex;align-items:center;justify-content:center;gap:5px}
+
+/* CONTACT */
+.contact-wrap{background:var(--bg);border-top:1px solid var(--border)}
+.cc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:48px;background:var(--border);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.cc{background:var(--surface);padding:36px 28px;text-align:center;transition:background .2s}
+.cc:hover{background:var(--surface2)}
+.cc-ico{width:56px;height:56px;border-radius:18px;background:rgba(37,99,235,.1);border:1px solid rgba(37,99,235,.2);display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 16px}
+.cc-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text4);margin-bottom:8px}
+.cc-value{font-size:17px;font-weight:700;color:#fff}
+.cc-value a{color:var(--blue3);text-decoration:none;transition:color .2s}
+.cc-value a:hover{color:var(--cyan)}
+.cc-sub{font-size:13px;color:var(--text3);margin-top:5px}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:36px max(40px,calc((100vw - 1200px)/2))}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.foot-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.foot-logo img{height:28px;width:28px;object-fit:contain;border-radius:7px}
+.foot-logo-text{font-size:15px;font-weight:700;color:#fff}
+.foot-links{display:flex;gap:28px}
+.foot-links a{font-size:13px;color:var(--text4);text-decoration:none;transition:color .2s;font-weight:500}
+.foot-links a:hover{color:var(--text2)}
+.foot-copy{font-size:12px;color:var(--text4)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.82);backdrop-filter:blur(8px);align-items:center;justify-content:center}
+.modal-overlay.show{display:flex}
+.modal{background:var(--surface2);border:1px solid var(--border2);border-radius:28px;padding:52px 44px;text-align:center;max-width:400px;width:90%;box-shadow:0 40px 80px rgba(0,0,0,.7);animation:fadeUp .4s ease;position:relative;overflow:hidden}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--blue),var(--cyan),transparent)}
+.modal-icon{font-size:58px;margin-bottom:20px;animation:mibounce .5s .1s both}
+@keyframes mibounce{0%{transform:scale(0)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+.modal h3{font-size:26px;font-weight:800;letter-spacing:-.5px;color:#fff;margin-bottom:10px}
+.modal p{color:var(--text3);line-height:1.65;font-size:15px;margin-bottom:32px}
+.modal-close{background:var(--blue);color:#fff;border:none;border-radius:14px;padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 8px 24px rgba(37,99,235,.4);transition:transform .15s,box-shadow .2s}
+.modal-close:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,99,235,.55)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .hero-inner,.book-layout{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .stats-inner,.why-grid{grid-template-columns:1fr 1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .feat-inner{grid-template-columns:1fr 1fr}
+  .cc-grid{grid-template-columns:1fr}
+  nav{padding:0 20px}
+  .nav-links a:not(.nav-btn){display:none}
+  .swrap{padding:70px 20px}
+  .stats-bar,.feat-strip,.footer{padding-left:20px;padding-right:20px}
 }
-/* ── DATE TABS ── */
-.date-tabs{display:flex;gap:8px;flex-wrap:wrap;}
-.date-tab{
-  flex:1;min-width:80px;
-  padding:10px 8px;text-align:center;
-  border:1.5px solid var(--border);border-radius:10px;
-  cursor:pointer;transition:all .15s;
-  background:var(--gray);font-family:'Outfit',sans-serif;
-  font-size:13px;font-weight:600;color:var(--black);
+@media(max-width:600px){
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .why-grid,.feat-inner{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .foot-inner{flex-direction:column;text-align:center}
+  .foot-links{justify-content:center}
 }
-.date-tab:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt);}
-.date-tab.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-.date-tab .dt-day{font-size:11px;font-weight:500;opacity:.75;margin-bottom:2px;}
-.date-tab .dt-date{font-size:14px;font-weight:700;}
 </style>
 </head>
 <body>
@@ -558,232 +270,148 @@ footer{
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
-    <img src="data:image/png;base64,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" alt="iFixAndRepair Logo" style="height:32px;width:32px;object-fit:contain;border-radius:6px;">
-    iFixAndRepair
+    <img src="data:image/png;base64,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" alt="logo">
+    <span class="nav-logo-text">iFixAndRepair</span>
   </a>
   <div class="nav-links">
     <a href="#services">Services</a>
     <a href="#booking">Book</a>
     <a href="#contact">Contact</a>
-    <a href="#booking" class="nav-cta">Book Now →</a>
+    <a href="#booking" class="nav-btn">Book a Repair →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
+  <div class="hero-aurora"></div>
+  <div class="hero-dots"></div>
   <div class="hero-inner">
     <div>
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        Greensboro, NC · 121 W Elmsley Dr · Open Daily 10:30am–8pm
+      <div class="hero-pill">
+        <div class="hero-pill-dot">🔧</div>
+        <span>Greensboro's Trusted Phone Repair</span>
       </div>
-      <h1>
-        <span class="thin">Fast.</span> Affordable.<br>
-        <span class="blue">Phone Repair.</span>
-      </h1>
-      <p class="hero-desc">Cracked screen? Dead battery? Charging port shot? We fix iPhones, Samsungs, and Motorolas — faster and cheaper than the big box stores. Walk in or book ahead.</p>
-      <div class="hero-actions">
-        <a href="#booking" class="btn-blue">Book a Repair →</a>
-        <a href="tel:+13363587181" class="btn-ghost">📞 Call / Text Me</a>
+      <h1 class="hero-h1">Your Phone.<br><span class="grad">Fixed Fast.</span></h1>
+      <p class="hero-p">Cracked screen, dead battery, broken port — we fix all of it. Same-day service, affordable prices, 30-day warranty on every repair.</p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Book a Repair
+        </a>
+        <a href="tel:+13363587181" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (336) 358-7181
+        </a>
       </div>
-      <div class="hero-badges">
-        <div class="badge"><span class="badge-icon">⚡</span> Same-day repairs</div>
-        <div class="badge"><span class="badge-icon">💲</span> Affordable pricing</div>
-        <div class="badge"><span class="badge-icon">🛡️</span> Trusted local service</div>
+      <div class="hero-trust">
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Same-day repairs</div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Affordable pricing</div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>30-day warranty</div>
+        <div class="trust-div"></div>
+        <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Trusted local service</div>
       </div>
     </div>
-
-    <!-- PHONE MOCKUP -->
-    <div class="phone-wrap">
-      <div style="position:relative">
-        <div class="phone-mockup">
+    <div class="hero-visual">
+      <div class="phone-scene">
+        <div class="phone-device">
           <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="phone-status">
-              <span>9:41</span><span>●●●</span>
+          <div class="phone-content">
+            <div class="p-statusbar"><span>9:41</span><span style="letter-spacing:2px">●●●</span></div>
+            <div class="p-header">
+              <div class="p-header-icon">🔧</div>
+              <div><div class="ph-title">iFixAndRepair</div><div class="ph-sub">Greensboro, NC · Open Now</div></div>
             </div>
-            <div class="p-logo">
-              <div class="p-logo-dot">🔧</div>
-              iFixAndRepair
-            </div>
-            <div class="p-heading">What needs fixing?</div>
-            <div class="p-sub">Greensboro, NC · Fast & affordable</div>
-            <div class="p-service-list">
-              <div class="p-service">
-                <span class="p-service-name">📱 Screen Repair</span>
-                <span class="p-service-price">from $79</span>
-              </div>
-              <div class="p-service">
-                <span class="p-service-name">🔋 Battery</span>
-                <span class="p-service-price">from $49</span>
-              </div>
-              <div class="p-service">
-                <span class="p-service-name">⚡ Charging Port</span>
-                <span class="p-service-price">from $45</span>
-              </div>
-              <div class="p-service">
-                <span class="p-service-name">💧 Water Damage</span>
-                <span class="p-service-price">from $60</span>
-              </div>
-            </div>
-            <button class="p-book-btn">Book Now →</button>
+            <div class="p-item"><div class="pi-left"><span class="pi-icon">📱</span><div><div class="pi-name">Screen Repair</div><div class="pi-desc">All models</div></div></div><span class="pi-price">$79+</span></div>
+            <div class="p-item"><div class="pi-left"><span class="pi-icon">🔋</span><div><div class="pi-name">Battery</div><div class="pi-desc">Same day</div></div></div><span class="pi-price">$49+</span></div>
+            <div class="p-item"><div class="pi-left"><span class="pi-icon">⚡</span><div><div class="pi-name">Charging Port</div><div class="pi-desc">Fast fix</div></div></div><span class="pi-price">$45+</span></div>
+            <div class="p-item"><div class="pi-left"><span class="pi-icon">💧</span><div><div class="pi-name">Water Damage</div><div class="pi-desc">Free diagnostic</div></div></div><span class="pi-price">$60+</span></div>
+            <button class="p-cta">Book Appointment →</button>
           </div>
         </div>
-        <div class="phone-float float-1">
-          <span class="float-dot" style="background:var(--green)"></span>✓ Booking confirmed
-        </div>
-        <div class="phone-float float-2">
-          <span class="float-dot" style="background:var(--blue)"></span>📍 Greensboro, NC
-        </div>
+        <div class="f-badge fb1"><span class="fb-dot" style="background:#22c55e"></span>✓ Booking confirmed</div>
+        <div class="f-badge fb2"><span class="fb-dot" style="background:#3b82f6"></span>⚡ Ready in 45 min</div>
+        <div class="f-badge fb3"><span class="fb-dot" style="background:#f59e0b"></span>🛡️ 30-day warranty</div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-block reveal"><div class="stat-num">500+</div><div class="stat-label">Repairs completed</div></div>
+    <div class="stat-block reveal"><div class="stat-num">1 hr</div><div class="stat-label">Average repair time</div></div>
+    <div class="stat-block reveal"><div class="stat-num">30</div><div class="stat-label">Day warranty</div></div>
+    <div class="stat-block reveal"><div class="stat-num">7</div><div class="stat-label">Days a week open</div></div>
+  </div>
+</div>
 
 <!-- SERVICES -->
-<section class="services-section" id="services">
-  <div class="section-inner">
-    <div class="eyebrow">What I fix</div>
-    <div class="section-title reveal">Every repair done right — or it's free.</div>
-    <div class="section-sub reveal">All repairs come with a 30-day warranty. If it breaks again, I fix it free.</div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <div class="s-icon">📱</div>
-        <div class="s-name">Screen Replacement</div>
-        <div class="s-desc">Cracked, shattered, or unresponsive screen. iPhone, Samsung Galaxy, Motorola — all models.</div>
-        <div class="s-price">from $79</div>
-        <div class="s-time">⏱ Usually under 1 hour</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="s-icon">🔋</div>
-        <div class="s-name">Battery Replacement</div>
-        <div class="s-desc">Draining too fast? Won't hold a charge? New OEM battery, same-day service.</div>
-        <div class="s-price">from $49</div>
-        <div class="s-time">⏱ 30–45 minutes</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="s-icon">⚡</div>
-        <div class="s-name">Charging Port</div>
-        <div class="s-desc">Phone not charging or charging slow? Port replacement for iPhone, Samsung & Motorola.</div>
-        <div class="s-price">from $45</div>
-        <div class="s-time">⏱ 45–60 minutes</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="s-icon">💧</div>
-        <div class="s-name">Water Damage</div>
-        <div class="s-desc">Dropped it in water? Act fast — bring it in as soon as possible for the best chance of recovery.</div>
-        <div class="s-price">from $60</div>
-        <div class="s-time">⏱ Diagnostic: 30 min</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="s-icon">🔊</div>
-        <div class="s-name">Speaker / Mic</div>
-        <div class="s-desc">Muffled calls? Can't hear anything? Speaker or microphone replacement for most models.</div>
-        <div class="s-price">from $40</div>
-        <div class="s-time">⏱ 30–45 minutes</div>
-      </div>
-      <div class="service-card reveal">
-        <div class="s-icon">🔍</div>
-        <div class="s-name">Free Diagnosis</div>
-        <div class="s-desc">Not sure what's wrong? I'll check it out for free and give you a straight quote before touching anything.</div>
-        <div class="s-price">FREE</div>
-        <div class="s-time">⏱ 15 minutes</div>
-      </div>
+<section class="swrap" id="services" style="background:var(--bg)">
+  <div class="smax">
+    <div class="eyebrow reveal">What we fix</div>
+    <h2 class="sh2 reveal">Every repair. Done right.</h2>
+    <p class="sp reveal">All repairs backed by a 30-day warranty. If it breaks again, we fix it free — no questions asked.</p>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="svc-ico">📱</div><div class="svc-name">Screen Replacement</div><div class="svc-desc">Cracked, shattered, or unresponsive screens. iPhone, Samsung, Motorola — all models covered.</div><div class="svc-price">from $79</div><div class="svc-time">⏱ Under 1 hour</div></div>
+      <div class="svc reveal"><div class="svc-ico">🔋</div><div class="svc-name">Battery Replacement</div><div class="svc-desc">Draining too fast or won't hold a charge? Fresh OEM battery installed same day.</div><div class="svc-price">from $49</div><div class="svc-time">⏱ 30–45 minutes</div></div>
+      <div class="svc reveal"><div class="svc-ico">⚡</div><div class="svc-name">Charging Port</div><div class="svc-desc">Won't charge or charging slowly? Port replacement for iPhone, Samsung & Motorola.</div><div class="svc-price">from $45</div><div class="svc-time">⏱ 45–60 minutes</div></div>
+      <div class="svc reveal"><div class="svc-ico">💧</div><div class="svc-name">Water Damage</div><div class="svc-desc">Act fast — bring it in immediately for the best chance of recovery. Free diagnostic.</div><div class="svc-price">from $60</div><div class="svc-time">⏱ Diagnostic: 30 min</div></div>
+      <div class="svc reveal"><div class="svc-ico">🔊</div><div class="svc-name">Speaker / Mic</div><div class="svc-desc">Muffled calls or no sound? Speaker and microphone replacement for most models.</div><div class="svc-price">from $40</div><div class="svc-time">⏱ 30–45 minutes</div></div>
+      <div class="svc reveal"><div class="svc-ico">🔍</div><div class="svc-name">Free Diagnosis</div><div class="svc-desc">Not sure what's wrong? We inspect it free and give a straight quote before touching anything.</div><div class="svc-price">FREE</div><div class="svc-time">⏱ 15 minutes</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHY US -->
-<section class="why-section">
-  <div class="why-grid-bg"></div>
-  <div class="section-inner" style="position:relative;z-index:1">
-    <div class="eyebrow">Why iFixAndRepair</div>
-    <div class="section-title reveal">Not your average repair shop.</div>
-    <div class="section-sub reveal">Walk in, drop it off, pick it up fixed. Fast, honest repairs every time.</div>
+<!-- FEATURES STRIP -->
+<div class="feat-strip">
+  <div class="feat-inner">
+    <div class="feat reveal"><div class="feat-ico">⚡</div><div class="feat-title">Same-Day Service</div><div class="feat-desc">Most repairs done in under an hour. Walk in, get it fixed, walk out.</div></div>
+    <div class="feat reveal"><div class="feat-ico">🛡️</div><div class="feat-title">30-Day Warranty</div><div class="feat-desc">Every repair is guaranteed. Fails within 30 days? We fix it free.</div></div>
+    <div class="feat reveal"><div class="feat-ico">💲</div><div class="feat-title">Honest Pricing</div><div class="feat-desc">Transparent quotes before we start. No surprises, no hidden fees.</div></div>
+    <div class="feat reveal"><div class="feat-ico">🏆</div><div class="feat-title">Quality Parts</div><div class="feat-desc">OEM-grade parts for every repair. Same quality as the manufacturer.</div></div>
+  </div>
+</div>
+
+<!-- WHY -->
+<section class="swrap why-wrap">
+  <div class="smax">
+    <div class="eyebrow reveal">Why iFixAndRepair</div>
+    <h2 class="sh2 reveal">Not your average repair shop.</h2>
+    <p class="sp reveal">Walk in, drop it off, pick it up fixed. Fast, honest repairs every single time.</p>
     <div class="why-grid">
-      <div class="why-card reveal">
-        <div class="why-num">01</div>
-        <div class="why-icon">📍</div>
-        <div class="why-title">Visit Our Store</div>
-        <div class="why-desc">121 W Elmsley Dr, Greensboro NC 27407. Easy to find, free parking, walk-ins always welcome.</div>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-num">02</div>
-        <div class="why-icon">💰</div>
-        <div class="why-title">Way Cheaper</div>
-        <div class="why-desc">Transparent pricing, no hidden fees. Same quality parts as the big stores — better price, faster turnaround.</div>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-num">03</div>
-        <div class="why-icon">⚡</div>
-        <div class="why-title">Same-Day Repairs</div>
-        <div class="why-desc">Most repairs done in under an hour. Book in the morning, fixed before lunch.</div>
-      </div>
-      <div class="why-card reveal">
-        <div class="why-num">04</div>
-        <div class="why-icon">🛡️</div>
-        <div class="why-title">30-Day Warranty</div>
-        <div class="why-desc">Every repair is guaranteed. If something goes wrong within 30 days, I fix it — no charge, no questions.</div>
-      </div>
+      <div class="why reveal"><div class="why-num">01</div><div class="why-ico">📍</div><div class="why-title">Visit Our Store</div><div class="why-desc">121 W Elmsley Dr, Greensboro NC 27407. Easy to find, free parking, walk-ins always welcome.</div></div>
+      <div class="why reveal"><div class="why-num">02</div><div class="why-ico">💰</div><div class="why-title">Affordable Pricing</div><div class="why-desc">Transparent pricing, no hidden fees. Same quality parts as big stores — better price, faster turnaround.</div></div>
+      <div class="why reveal"><div class="why-num">03</div><div class="why-ico">⚡</div><div class="why-title">Same-Day Repairs</div><div class="why-desc">Most repairs done in under an hour. Book in the morning, fixed before lunch.</div></div>
+      <div class="why reveal"><div class="why-num">04</div><div class="why-ico">🛡️</div><div class="why-title">30-Day Warranty</div><div class="why-desc">Every repair guaranteed. If something goes wrong within 30 days, we fix it — no charge, no questions.</div></div>
     </div>
   </div>
 </section>
 
 <!-- BOOKING -->
-<section class="booking-section" id="booking">
-  <div class="section-inner">
-    <div class="booking-layout">
-      <div class="booking-left">
-        <div class="eyebrow">Book a repair</div>
-        <div class="section-title reveal">Ready when you are.</div>
-        <div class="section-sub reveal">Pick a time that works for you. I'll confirm within 15 minutes.</div>
-        <div class="booking-perks">
-          <div class="perk reveal">
-            <div class="perk-icon">📍</div>
-            <div>
-              <div class="perk-title">121 W Elmsley Dr, Greensboro NC 27407</div>
-              <div class="perk-desc">Easy to find with free parking. Walk-ins welcome — no appointment needed.</div>
-            </div>
-          </div>
-          <div class="perk reveal">
-            <div class="perk-icon">🕐</div>
-            <div>
-              <div class="perk-title">Open every day 10:30am – 8:00pm</div>
-              <div class="perk-desc">7 days a week, no days off. Come in whenever works for you.</div>
-            </div>
-          </div>
-          <div class="perk reveal">
-            <div class="perk-icon">💬</div>
-            <div>
-              <div class="perk-title">Confirmation in 15 minutes</div>
-              <div class="perk-desc">Book online and we'll text you back fast to confirm. Or just walk in — we'll take care of you right away.</div>
-            </div>
-          </div>
+<section class="swrap booking-wrap" id="booking">
+  <div class="smax">
+    <div class="book-layout">
+      <div>
+        <div class="eyebrow reveal">Book a repair</div>
+        <h2 class="sh2 reveal">Ready when you are.</h2>
+        <p class="sp reveal">Pick a date and time. We'll confirm within 15 minutes.</p>
+        <div class="bperks">
+          <div class="bperk reveal"><div class="bperk-ico">📍</div><div><div class="bperk-title">121 W Elmsley Dr, Greensboro NC 27407</div><div class="bperk-desc">Easy to find with free parking. Walk-ins welcome anytime.</div></div></div>
+          <div class="bperk reveal"><div class="bperk-ico">🕐</div><div><div class="bperk-title">Open every day 10:30am – 8:00pm</div><div class="bperk-desc">7 days a week, no days off. Come in whenever works for you.</div></div></div>
+          <div class="bperk reveal"><div class="bperk-ico">💬</div><div><div class="bperk-title">Confirmation in 15 minutes</div><div class="bperk-desc">Book online and we'll text you back fast. Or just walk in — we'll take care of you right away.</div></div></div>
         </div>
       </div>
-
-      <!-- BOOKING FORM -->
       <form class="book-form reveal" id="book-form" action="https://formspree.io/f/mzdjojov" method="POST">
         <div class="form-title">Book Your Repair</div>
         <div class="form-sub">Takes 60 seconds · We'll confirm within 15 minutes</div>
-
         <div class="form-row">
-          <div class="fg">
-            <label>Your Name</label>
-            <input type="text" name="name" placeholder="First & last name" id="f-name">
-          </div>
-          <div class="fg">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" placeholder="336-000-0000" id="f-phone">
-          </div>
+          <div class="fg"><label>Your Name</label><input type="text" name="name" id="f-name" placeholder="First & last name"></div>
+          <div class="fg"><label>Phone Number</label><input type="tel" name="phone" id="f-phone" placeholder="336-000-0000"></div>
         </div>
-        <div class="fg">
-          <label>Device / Part / Model</label>
-          <input type="text" name="device" id="f-device" placeholder="e.g. iPhone 13 screen, charging port, battery, back glass">
-        </div>
+        <div class="fg"><label>Device / Part / Model</label><input type="text" name="device" id="f-device" placeholder="e.g. iPhone 13 screen, battery, charging port"></div>
         <div class="fg">
           <label>What's Wrong?</label>
           <select name="issue" id="f-issue">
@@ -797,138 +425,163 @@ footer{
             <option>Other (describe below)</option>
           </select>
         </div>
-        <div class="fg">
-          <label>Extra notes (optional)</label>
-          <textarea name="notes" placeholder="Any other details about the problem..."></textarea>
-        </div>
-
-        <!-- DATE PICKER -->
-        <div class="fg">
-          <label>Pick a Date</label>
-          <div class="date-tabs" id="date-tabs"></div>
-        </div>
-
-        <!-- TIME SLOTS -->
+        <div class="fg"><label>Extra notes (optional)</label><textarea name="notes" placeholder="Any other details about the problem..."></textarea></div>
+        <div class="fg"><label>Pick a Date</label><div class="date-tabs" id="date-tabs"></div></div>
         <span class="time-label">Pick a Time Slot</span>
         <div class="slots" id="slots-container"></div>
-
         <input type="hidden" name="date" id="f-date">
         <input type="hidden" name="time_slot" id="f-slot">
-
-        <button type="button" class="submit-btn" onclick="submitBooking()">Send Booking Request →</button>
-        <div class="form-note">🔒 Your info stays private. No spam, ever.</div>
+        <button type="button" class="submit-btn" id="submit-btn" onclick="submitBooking()">Send Booking Request →</button>
+        <div class="form-note">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Your info is private and never shared
+        </div>
       </form>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="section-inner">
-    <div class="eyebrow">Get in touch</div>
-    <div class="section-title reveal">Prefer to just call or text?</div>
-    <div class="section-sub reveal">Reach out any way you like. I usually respond within minutes.</div>
-    <div class="contact-grid">
-      <div class="contact-card reveal">
-        <div class="cc-icon">📱</div>
-        <div class="cc-label">Call or Text</div>
-        <div class="cc-value"><a href="tel:+13363587181">(336) 358-7181</a></div>
-        <div class="cc-sub">Open daily 10:30am–8pm</div>
-      </div>
-      <div class="contact-card reveal">
-        <div class="cc-icon">📍</div>
-        <div class="cc-label">Our Location</div>
-        <div class="cc-value"><a href="https://maps.google.com/?q=121+W+Elmsley+Dr+Greensboro+NC+27407" target="_blank">121 W Elmsley Dr</a></div>
-        <div class="cc-sub">Greensboro, NC 27407</div>
-      </div>
-      <div class="contact-card reveal">
-        <div class="cc-icon">🕐</div>
-        <div class="cc-label">Hours</div>
-        <div class="cc-value">10:30am – 8:00pm</div>
-        <div class="cc-sub">Open every day · Walk-ins welcome</div>
-      </div>
+<section class="swrap contact-wrap" id="contact">
+  <div class="smax">
+    <div class="eyebrow reveal">Get in touch</div>
+    <h2 class="sh2 reveal">Prefer to call or walk in?</h2>
+    <p class="sp reveal">We usually respond within minutes. Walk-ins always welcome.</p>
+    <div class="cc-grid">
+      <div class="cc reveal"><div class="cc-ico">📱</div><div class="cc-label">Call or Text</div><div class="cc-value"><a href="tel:+13363587181">(336) 358-7181</a></div><div class="cc-sub">Open daily 10:30am–8pm</div></div>
+      <div class="cc reveal"><div class="cc-ico">📍</div><div class="cc-label">Our Location</div><div class="cc-value"><a href="https://maps.google.com/?q=121+W+Elmsley+Dr+Greensboro+NC+27407" target="_blank">121 W Elmsley Dr</a></div><div class="cc-sub">Greensboro, NC 27407</div></div>
+      <div class="cc reveal"><div class="cc-ico">🕐</div><div class="cc-label">Hours</div><div class="cc-value">10:30am – 8:00pm</div><div class="cc-sub">Open every day · Walk-ins welcome</div></div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">
-    <div class="footer-logo-icon">🔧</div>
-    iFixAndRepair
+  <div class="foot-inner">
+    <a class="foot-logo" href="#">
+      <img src="data:image/png;base64,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" alt="logo">
+      <span class="foot-logo-text">iFixAndRepair</span>
+    </a>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#booking">Book a Repair</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="foot-copy">© 2026 iFixAndRepair · Greensboro, NC</div>
   </div>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#booking">Book a Repair</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="footer-copy">© 2026 iFixAndRepair · Greensboro, NC</div>
 </footer>
 
-<!-- SUCCESS MODAL -->
+<!-- MODAL -->
 <div class="modal-overlay" id="success-modal">
   <div class="modal">
     <div class="modal-icon">🎉</div>
-    <h3>Request Sent!</h3>
-    <p>I'll text you back within 15 minutes to confirm your appointment. Talk soon!</p>
+    <h3>You're Booked!</h3>
+    <p>We'll text you within 15 minutes to confirm your appointment. See you soon!</p>
     <button class="modal-close" onclick="closeModal()">Got it!</button>
   </div>
 </div>
 
 <script>
-function pickSlot(el){
+const ALL_SLOTS=['10:30 AM','11:30 AM','12:30 PM','1:30 PM','2:30 PM','3:30 PM','4:30 PM','5:30 PM','6:30 PM','7:30 PM'];
+function dateKey(d){return d.toISOString().split('T')[0]}
+function formatLabel(d){
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return{day:days[d.getDay()],date:d.getDate()+' '+months[d.getMonth()]};
+}
+function getBooked(k){try{return JSON.parse(localStorage.getItem('bk_'+k)||'[]')}catch(e){return[]}}
+function addBooked(k,s){const b=getBooked(k);b.push(s);localStorage.setItem('bk_'+k,JSON.stringify(b))}
+
+let selDate=null,selSlot=null;
+const dates=[];
+
+function buildDateTabs(){
+  const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<3;i++){const d=new Date(today);d.setDate(today.getDate()+i);dates.push(d)}
+  const c=document.getElementById('date-tabs');
+  dates.forEach((d,i)=>{
+    const l=formatLabel(d);
+    const tab=document.createElement('div');
+    tab.className='date-tab';
+    tab.innerHTML=`<div class="dt-day">${i===0?'Today':i===1?'Tomorrow':l.day}</div><div class="dt-date">${l.date}</div>`;
+    tab.onclick=()=>selDateFn(d,tab);
+    c.appendChild(tab);
+  });
+  selDateFn(dates[0],c.children[0]);
+}
+
+function selDateFn(d,tab){
+  selDate=d;selSlot=null;
+  document.getElementById('f-date').value=dateKey(d);
+  document.getElementById('f-slot').value='';
+  document.querySelectorAll('.date-tab').forEach(t=>t.classList.remove('active'));
+  tab.classList.add('active');
+  buildSlots(d);
+}
+
+function buildSlots(d){
+  const key=dateKey(d),booked=getBooked(key),now=new Date();
+  const isToday=dateKey(d)===dateKey(now);
+  const c=document.getElementById('slots-container');c.innerHTML='';
+  ALL_SLOTS.forEach(slot=>{
+    const el=document.createElement('div');
+    el.className='slot';el.textContent=slot;
+    const past=isToday&&slotPast(slot,now);
+    const taken=booked.includes(slot);
+    if(past||taken){el.classList.add('taken');el.title=taken?'Already booked':'Time passed'}
+    else{el.onclick=()=>pickSlot(el,slot)}
+    c.appendChild(el);
+  });
+}
+
+function slotPast(slot,now){
+  const[t,p]=slot.split(' ');let[h,m]=t.split(':').map(Number);
+  if(p==='PM'&&h!==12)h+=12;if(p==='AM'&&h===12)h=0;
+  return(h*60+m)<=(now.getHours()*60+now.getMinutes());
+}
+
+function pickSlot(el,slot){
   document.querySelectorAll('.slot').forEach(s=>s.classList.remove('selected'));
-  el.classList.add('selected');
-  document.getElementById('f-slot').value = el.textContent.trim();
+  el.classList.add('selected');selSlot=slot;
+  document.getElementById('f-slot').value=slot;
 }
 
 async function submitBooking(){
-  const name   = document.getElementById('f-name').value.trim();
-  const phone  = document.getElementById('f-phone').value.trim();
-  const device = document.getElementById('f-device').value.trim();
-  const issue  = document.getElementById('f-issue').value;
-  const slot   = document.querySelector('.slot.selected');
-  if(!name)  { document.getElementById('f-name').focus(); return; }
-  if(!phone) { document.getElementById('f-phone').focus(); return; }
-  if(!device){ document.getElementById('f-device').focus(); return; }
-  if(!issue) { document.getElementById('f-issue').focus(); return; }
-  if(!slot)  { alert('Please pick a time slot!'); return; }
-
-  const form = document.getElementById('book-form');
-  const data = new FormData(form);
-
-  try {
-    const res = await fetch('https://formspree.io/f/mvzwlwvy', {
-      method: 'POST',
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    });
+  const n=document.getElementById('f-name').value.trim();
+  const p=document.getElementById('f-phone').value.trim();
+  const dv=document.getElementById('f-device').value.trim();
+  const i=document.getElementById('f-issue').value;
+  if(!n){document.getElementById('f-name').focus();return}
+  if(!p){document.getElementById('f-phone').focus();return}
+  if(!dv){document.getElementById('f-device').focus();return}
+  if(!i){document.getElementById('f-issue').focus();return}
+  if(!selDate){alert('Please pick a date.');return}
+  if(!selSlot){alert('Please pick a time slot.');return}
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='Sending...';btn.disabled=true;
+  try{
+    const res=await fetch('https://formspree.io/f/mzdjojov',{method:'POST',body:new FormData(document.getElementById('book-form')),headers:{'Accept':'application/json'}});
     if(res.ok){
+      addBooked(dateKey(selDate),selSlot);
+      buildSlots(selDate);
       document.getElementById('success-modal').classList.add('show');
-    } else {
-      alert('Something went wrong. Please call us directly at (336) 358-7181.');
-    }
-  } catch(e){
-    alert('Could not send. Please call us at (336) 358-7181.');
-  }
+      document.getElementById('f-name').value='';
+      document.getElementById('f-phone').value='';
+      document.getElementById('f-device').value='';
+      document.getElementById('f-issue').value='';
+      document.querySelector('textarea[name="notes"]').value='';
+      selSlot=null;document.getElementById('f-slot').value='';
+    }else{alert('Something went wrong. Please call us at (336) 358-7181.')}
+  }catch(e){alert('Could not send. Please call us at (336) 358-7181.')}
+  btn.textContent='Send Booking Request →';btn.disabled=false;
 }
 
-function closeModal(){
-  document.getElementById('success-modal').classList.remove('show');
-  document.getElementById('f-name').value='';
-  document.getElementById('f-phone').value='';
-  document.getElementById('f-device').value='';
-  document.getElementById('f-issue').value='';
-  document.querySelectorAll('.slot').forEach(s=>s.classList.remove('selected'));
-}
+function closeModal(){document.getElementById('success-modal').classList.remove('show')}
 
-// Scroll reveal
-const obs = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('visible');
-  });
-},{threshold:0.1});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:0.07});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+buildDateTabs();
 </script>
 </body>
 </html>
