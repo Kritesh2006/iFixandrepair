@@ -1,62 +1,33 @@
-# iFixandRepair — Employee Timesheet
+# iFixAndRepair — Phone Repair Greensboro NC
 
-A simple, mobile-friendly employee timesheet web app for iFixandRepair. Built as a single HTML file with no dependencies, no backend, and no installation required.
+Professional phone repair service based in Greensboro, North Carolina.
 
-## What It Does
+## Services
+- Screen Replacement (from $79)
+- Battery Replacement (from $49)
+- Charging Port Repair (from $45)
+- Water Damage Recovery (from $60)
+- Speaker / Mic Repair (from $40)
+- Free Diagnosis
 
-- Employees enter their name and select their pay period
-- Choose any month, year, and pay period half (1st–15th or 16th–end of month)
-- Fill in daily hours and store location for each date
-- Live totals update instantly for G1, G2, G3, and overall hours
-- Submit generates a printable summary that can be copied and sent to a manager
+## Location
+121 W Elmsley Dr, Greensboro, NC 27407
 
-## How to Use
+## Hours
+Open every day — 10:30am to 8:00pm
 
-1. Open `index.html` in any browser
-2. Enter your full name
-3. Select the correct month, year, and pay period half
-4. For each date, choose your store (G1, G2, G3, or Off) and hours (9.5, 10, or Custom)
-5. Click **Submit Timesheet** to generate your summary
-6. Print or copy the summary to send to your manager
+## Contact
+Phone: (336) 358-7181
 
-## Features
-
-- Auto-detects the current pay period on load
-- Supports any month and year — no manual date editing ever needed
-- Handles February 28/29, and months with 30 or 31 days automatically
-- Custom hours input supports decimals (e.g. 8.5)
-- Off days count as 0 and are excluded from totals
-- Printable summary page
-- Copy to clipboard button for easy sharing
-- Works fully offline — no internet required after opening
-
-## Hosting
-
-This app is hosted via GitHub Pages at:
-`https://kritesh2006.github.io/Pay-report/`
-
-No server, no database, no setup needed.
-
-## Files
-
-| File | Description |
-|---|---|
-| index.html | The entire app — HTML, CSS, and JavaScript in one file |
-
-## Customization
-
-All editable items are inside `index.html`:
-
-- **To change the manager email or add a backend** — connect to Google Apps Script (see setup guide)
-- **No other configuration needed** — the app is self-contained
+## Book Online
+Customers can book appointments directly on the website.
 
 ## Built With
+HTML, CSS, JavaScript
+Hosted on GitHub Pages
 
-- Plain HTML, CSS, and JavaScript
-- No frameworks
-- No external libraries
-- No build tools
+## Here's the screenshot 
+<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/0043d119-8af3-41f8-a61f-b5b0568d3eef" />
+<img width="1916" height="925" alt="image" src="https://github.com/user-attachments/assets/96b6df0d-652a-49a6-b8d9-0c51d8c0b396" />
 
----
-
-*Internal tool for iFixandRepair.*
+made for internal use of Ifixandrepair
